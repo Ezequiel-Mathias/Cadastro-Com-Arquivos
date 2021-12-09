@@ -37,7 +37,7 @@ public class app {
 	String texto = "";	
 	for (Cadastro contato : objDadosContato.listarContatos()) {
 		//ESSE PONTO E VIRGULO SERVE PARA QUANDO FOR ENVIADO PARA O ARQUIVO O ARQUIVO ENTENDER QUE ACABOU A LINHA
-		System.out.println( contato.getNome() + ";"+ contato.getEmail() + ";" + contato.getTelefone() + ";" + contato.getCidade() + "\n");
+		texto += contato.getNome() + ";"+ contato.getEmail() + ";" + contato.getTelefone() + ";" + contato.getCidade() + "\n";
 		
 		
 	}
