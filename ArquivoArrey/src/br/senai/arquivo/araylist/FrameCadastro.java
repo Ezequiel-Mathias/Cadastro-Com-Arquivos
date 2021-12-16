@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -23,9 +24,9 @@ public class FrameCadastro extends JFrame {
 	private JTextField txtcidade;
 
 	//ATRIBUTOS REFERENTES A CRIA플O/GRAVA플O DE CONTATOS
-	
+	String texto = "";
 	Cadastro contato = null;
-	DadosDaConta objDAdosContato = null;
+	DadosDaConta objdadosContato = null;
 	Arquivo objArquivo = null;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -47,7 +48,7 @@ public class FrameCadastro extends JFrame {
 		
 		contato = new Cadastro();
 		objArquivo = new Arquivo();
-		objDAdosContato = new DadosDaConta();
+		objdadosContato = new DadosDaConta();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 435);
@@ -106,6 +107,8 @@ public class FrameCadastro extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				
 				//A플O DO BOT홒 CADASTRAR
 				//CAPTURA DOS DADOS PARA O OBJETO DE CONTATO
 				contato.setNome(txtnome.getText());
@@ -115,16 +118,42 @@ public class FrameCadastro extends JFrame {
 				
 				//PREPARA플O DOS DADOS PARA A GRAVA플O  NO ARQUIVO TXT
 				
-				String texto = contato.getNome() + ";"+ contato.getEmail() + ";" + 
+				/*String texto = contato.getNome() + ";"+ contato.getEmail() + ";" + 
 				contato.getTelefone() + ";" 
-				+ contato.getCidade() + "\n";
+				+ contato.getCidade() + "\n";*/
 				
 				//GRAVA플O DOS DADOS NO ARQUIVO TXT
-				String caminho = "Z:\\CONTATO\\contato.txt";
+				String caminho = "C:\\Users\\21276325\\eclipse-workspace\\Contato\\Contatos.txt";
+				
+				//GRAVA플O
+				
+//				objdadosContato.contarContatos();
+			
+
+				//TESTE DE LEITURA DE ARQUIVO TXT
+				objdadosContato = objArquivo.ler(caminho);
+				
+				objdadosContato.Cadastrarcontatos(contato);
+				
+				ArrayList<Cadastro> contatos = objdadosContato.listarContatos();
+				
+				contatos.forEach(contato->{
+					texto +=contato.getNome()+  ";"+
+					contato.getEmail() + ";" +		
+					contato.getTelefone() + ";" +
+					contato.getCidade() + "\n";
+				});
+				
+				objArquivo.escrever(caminho,texto);
+				contatos = null;
+				//System.out.println(texto);
+				
 				objArquivo.escrever(caminho, texto);
 				
 			}
 		});
+		
+
 		btnNewButton.setBounds(56, 259, 117, 51);
 		contentPane.add(btnNewButton);
 		

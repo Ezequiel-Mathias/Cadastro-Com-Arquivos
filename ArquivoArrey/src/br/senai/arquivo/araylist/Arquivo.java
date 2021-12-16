@@ -9,6 +9,10 @@ import java.io.PrintWriter;
 
 public class Arquivo {
 	
+	public DadosDaConta objDadosContato = new DadosDaConta();
+	
+	
+	
 	// ISSOO SERVE PARA TRATAR O ERRO PARA NÃO CRACHAR O SITE !!!!
 	//para não dar varios erros eu coloco para dar uma mensagem com erro escrito
 	//cria o arquivo quando esse não existir e grava dados no arquivo
@@ -39,8 +43,8 @@ public class Arquivo {
 	
 	}
 	
-	public String ler(String caminhopler) {
-		String conteudo = "";
+	public DadosDaConta ler(String caminhopler) {
+		
 		
 		try {
 			// VAI REPRESENTAR UM ARQUIVO QUANDO EU FOR LER (EM MODO DE LEITURA)
@@ -51,19 +55,33 @@ public class Arquivo {
 			String linha = "";
 			
 			linha = leituradamemoriadodoprograma.readLine();
-			
+		
 			while(linha != null) {
-				conteudo += linha + "\n";
+
+				String[] dadoslinha = linha.split(";");
+				Cadastro objCadastro = new Cadastro();
+				
+				objCadastro.setTelefone(dadoslinha[0]);
+				objCadastro.setCidade(dadoslinha[1]);
+				objCadastro.setEmail(dadoslinha[2]);
+				objCadastro.setNome(dadoslinha[3]);
+				
+				objDadosContato.Cadastrarcontatos(objCadastro);
+				
 				linha = leituradamemoriadodoprograma.readLine();
+				
 			}
+			
 			leituradamemoriadodoprograma.close();
-			return conteudo;
+			
+			return objDadosContato;
 			
 		}catch(IOException e){
 			System.out.println("ERROOOOO " + e.getMessage());
+			return null;
 		}
 		
-		return conteudo;
+		
 	}
 
 }
